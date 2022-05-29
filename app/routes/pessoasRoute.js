@@ -1,10 +1,12 @@
-const { app } = require('express')
+const { authJwt } = require('../middleware')
 const PessoaController = require('../controllers/PessoaController')
 const MatriculaController = require('../controllers/MatriculaController')
 
+
 module.exports = function(app) {
-  app.get('/pessoas', PessoaController.pegaTodasAsPessoas)  
-  app.get('/pessoas/:id', PessoaController.pegaPessoa)  
+ 
+  app.get('/pessoas', authJwt.verifyToken,PessoaController.pegaTodasAsPessoas)  
+  app.get('/pessoas/:id',PessoaController.pegaPessoa)  
   app.post('/pessoas', PessoaController.criaPessoa)  
   app.get('/pessoas/ativas', PessoaController.pegaPessoasAtivas)  
   app.get('/pessoas/:estudanteId/matricula', PessoaController.pegaMatriculas)  

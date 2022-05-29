@@ -24,6 +24,8 @@ class PessoaController {
     const { id } = req.params
     try {
       const pessoa = await pessoasServices.pegaUmRegistro({ id })
+      console.log('aquii', pessoa)
+
       return res.status(200).json(pessoa)
     } catch (error) {
       return res.status(500).json(error.message)
